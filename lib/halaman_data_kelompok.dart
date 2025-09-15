@@ -7,10 +7,10 @@ class HalamanDataKelompok extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> daftarAnggota = [
-      'Fernando Hosea Sihaloho',
-      'Syaiful Akmal Aufa Rofiqi',
-      'Muhammad Raya Pedang Putra',
-      'Kadek Panji Nugraha'
+      'Fernando Hosea Sihaloho [124230125]',
+      'Syaiful Akmal Aufa Rofiqi [124230132]',
+      'Muhammad Raya Pedang Putra [124230137]',
+      'Kadek Panji Nugraha [124230160]'
     ];
 
     return Scaffold(
