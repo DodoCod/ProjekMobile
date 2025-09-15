@@ -31,6 +31,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  decimal: ^2.3.3 # Tambahkan ini
   google_fonts: ^6.1.0 # Ini adalah lokasi yang benar untuk google_fonts
 
   # The following adds the Cupertino Icons font to your application.
