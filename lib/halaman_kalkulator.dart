@@ -1,39 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CalculatorPage extends StatefulWidget {
-  const CalculatorPage({super.key});
+class HalamanKalkulator extends StatefulWidget {
+  const HalamanKalkulator({super.key});
 
   @override
-  State<CalculatorPage> createState() => _CalculatorPageState();
+  State<HalamanKalkulator> createState() => _HalamanKalkulatorState();
 }
 
-class _CalculatorPageState extends State<CalculatorPage> {
-  final TextEditingController _num1Controller = TextEditingController();
-  final TextEditingController _num2Controller = TextEditingController();
-  double _result = 0.0;
-  String _operator = '+';
+class _HalamanKalkulatorState extends State<HalamanKalkulator> {
+  final TextEditingController pengontrolAngka1 = TextEditingController();
+  final TextEditingController pengontrolAngka2 = TextEditingController();
+  double hasil = 0.0;
+  String operatorSaatIni = '+';
 
-  void _calculate() {
-    double num1 = double.tryParse(_num1Controller.text) ?? 0;
-    double num2 = double.tryParse(_num2Controller.text) ?? 0;
-
+  void _hitung() {
+    double angka1 = double.tryParse(pengontrolAngka1.text) ?? 0;
+    double angka2 = double.tryParse(pengontrolAngka2.text) ?? 0;
+    
     setState(() {
-      switch (_operator) {
+      switch (operatorSaatIni) {
         case '+':
-          _result = num1 + num2;
+          hasil = angka1 + angka2;
           break;
         case '-':
-          _result = num1 - num2;
+          hasil = angka1 - angka2;
           break;
         case '*':
-          _result = num1 * num2;
+          hasil = angka1 * angka2;
           break;
         case '/':
-          if (num2 != 0) {
-            _result = num1 / num2;
+          if (angka2 != 0) {
+            hasil = angka1 / angka2;
           } else {
-            _result = double.infinity; // Untuk menunjukkan error "dibagi nol"
+            hasil = double.infinity;
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Tidak bisa dibagi dengan nol.')),
             );
@@ -56,7 +56,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextField(
-              controller: _num1Controller,
+              controller: pengontrolAngka1,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 labelText: 'Angka Pertama',
@@ -65,7 +65,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
             ),
             const SizedBox(height: 20),
             TextField(
-              controller: _num2Controller,
+              controller: pengontrolAngka2,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 labelText: 'Angka Kedua',
@@ -73,8 +73,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
               ),
             ),
             const SizedBox(height: 30),
-
-            // Pilihan Operator
+            
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: ['+', '-', '*', '/'].map((String op) {
@@ -84,13 +83,13 @@ class _CalculatorPageState extends State<CalculatorPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          _operator = op;
+                          operatorSaatIni = op;
                         });
-                        _calculate(); // Hitung langsung setelah operator dipilih
+                        _hitung();
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: _operator == op ? Theme.of(context).primaryColor : Colors.grey[300],
-                        foregroundColor: _operator == op ? Colors.white : Colors.black,
+                        backgroundColor: operatorSaatIni == op ? Theme.of(context).primaryColor : Colors.grey[300],
+                        foregroundColor: operatorSaatIni == op ? Colors.white : Colors.black,
                         padding: const EdgeInsets.symmetric(vertical: 15),
                       ),
                       child: Text(op, style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold)),
@@ -101,7 +100,6 @@ class _CalculatorPageState extends State<CalculatorPage> {
             ),
             const SizedBox(height: 30),
 
-            // Tampilan Hasil
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
@@ -117,7 +115,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    _result == double.infinity ? 'ERROR' : _result.toStringAsFixed(2), // Format 2 angka di belakang koma
+                    hasil == double.infinity ? 'ERROR' : hasil.toStringAsFixed(2),
                     style: GoogleFonts.poppins(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,

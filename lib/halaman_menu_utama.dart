@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'group_data_page.dart';
-import 'calculator_page.dart';
-import 'even_odd_page.dart';
-import 'sum_of_digits_page.dart';
+import 'halaman_data_kelompok.dart';
+import 'halaman_kalkulator.dart';
+import 'halaman_ganjil_genap.dart';
+import 'halaman_jumlah_angka.dart';
 
-class MainMenuPage extends StatelessWidget {
-  const MainMenuPage({super.key});
+class HalamanMenuUtama extends StatelessWidget {
+  const HalamanMenuUtama({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,42 +18,42 @@ class MainMenuPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: GridView.count( // Menggunakan GridView untuk tata letak yang menarik
-          crossAxisCount: 2, // 2 kolom
+        child: GridView.count(
+          crossAxisCount: 2,
           crossAxisSpacing: 16.0,
           mainAxisSpacing: 16.0,
           children: [
-            _buildMenuItem(context, 'Data Kelompok', Icons.group, const GroupDataPage()),
-            _buildMenuItem(context, 'Kalkulator', Icons.calculate, const CalculatorPage()),
-            _buildMenuItem(context, 'Ganjil/Genap', Icons.numbers, const EvenOddPage()),
-            _buildMenuItem(context, 'Jumlah Angka', Icons.format_list_numbered, const SumOfDigitsPage()),
+            _buatItemMenu(context, 'Data Kelompok', Icons.group, const HalamanDataKelompok()),
+            _buatItemMenu(context, 'Kalkulator', Icons.calculate, const HalamanKalkulator()),
+            _buatItemMenu(context, 'Ganjil/Genap', Icons.numbers, const HalamanGanjilGenap()),
+            _buatItemMenu(context, 'Jumlah Angka', Icons.format_list_numbered, const HalamanJumlahAngka()),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildMenuItem(BuildContext context, String title, IconData icon, Widget page) {
+  Widget _buatItemMenu(BuildContext context, String judul, IconData ikon, Widget halaman) {
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
       ),
-      child: InkWell( // Membuat Card bisa ditekan
+      child: InkWell(
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => page),
+            MaterialPageRoute(builder: (context) => halaman),
           );
         },
         borderRadius: BorderRadius.circular(15),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 50, color: Theme.of(context).primaryColor),
+            Icon(ikon, size: 50, color: Theme.of(context).primaryColor),
             const SizedBox(height: 10),
             Text(
-              title,
+              judul,
               textAlign: TextAlign.center,
               style: GoogleFonts.poppins(
                 fontSize: 16,

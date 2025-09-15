@@ -1,34 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'main_menu_page.dart';
+import 'halaman_menu_utama.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class HalamanLogin extends StatefulWidget {
+  const HalamanLogin({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<HalamanLogin> createState() => _HalamanLoginState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+class _HalamanLoginState extends State<HalamanLogin> {
+  final TextEditingController pengontrolNamaPengguna = TextEditingController();
+  final TextEditingController pengontrolSandi = TextEditingController();
 
-  final Map<String, String> _groupMembers = {
+  final Map<String, String> dataAnggotaKelompok = {
     'fernando': '124230125',
     'syaiful': '124230132',
     'raya': '124230137',
     'panji': '124230160',
   };
 
-  void _login() {
-    if (_groupMembers[_usernameController.text.toLowerCase()] == _passwordController.text) {
+  void _prosesLogin() {
+    if (dataAnggotaKelompok[pengontrolNamaPengguna.text.toLowerCase()] == pengontrolSandi.text) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const MainMenuPage()),
+        MaterialPageRoute(builder: (context) => const HalamanMenuUtama()),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Username atau NIM salah.')),
+        const SnackBar(content: Text('Nama pengguna atau NIM salah.')),
       );
     }
   }
@@ -37,13 +37,12 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: SingleChildScrollView( // Agar keyboard tidak menutupi input
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(32.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch, // Agar elemen mengisi lebar
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Logo atau Judul Aplikasi
               Icon(
                 Icons.account_circle,
                 size: 100,
@@ -70,35 +69,32 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 40),
 
-              // Input Username
               TextField(
-                controller: _usernameController,
+                controller: pengontrolNamaPengguna,
                 decoration: const InputDecoration(
-                  labelText: 'Username',
+                  labelText: 'Nama Pengguna',
                   prefixIcon: Icon(Icons.person),
                 ),
               ),
               const SizedBox(height: 20),
 
-              // Input Password (NIM)
               TextField(
-                controller: _passwordController,
+                controller: pengontrolSandi,
                 obscureText: true,
                 decoration: const InputDecoration(
-                  labelText: 'NIM (Password)',
+                  labelText: 'NIM (Sandi)',
                   prefixIcon: Icon(Icons.lock),
                 ),
               ),
               const SizedBox(height: 30),
 
-              // Tombol Login
               ElevatedButton(
-                onPressed: _login,
-                child: const Text('LOGIN'),
+                onPressed: _prosesLogin,
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   textStyle: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
+                child: const Text('MASUK'),
               ),
             ],
           ),
